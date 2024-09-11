@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
 )
@@ -24,9 +24,9 @@ func NewClient() *Client {
 }
 
 type APIResponse struct {
-	Code   int             `json:"code"`   
-	Msg    interface{}     `json:"msg"`    
-	Result json.RawMessage `json:"result"` 
+	Code   int             `json:"code"`
+	Msg    interface{}     `json:"msg"`
+	Result json.RawMessage `json:"result"`
 }
 
 func (c *Client) makeRequest(method, path string, body interface{}, headers map[string]string) ([]byte, error) {
@@ -57,7 +57,7 @@ func (c *Client) makeRequest(method, path string, body interface{}, headers map[
 	}
 	defer resp.Body.Close()
 
-	respBody, err := ioutil.ReadAll(resp.Body)
+	respBody, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, fmt.Errorf("error reading response: %v", err)
 	}

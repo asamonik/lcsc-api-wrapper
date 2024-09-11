@@ -100,3 +100,7 @@ func (c *Client) GetProduct(productID string) (*Product, error) {
 
 	return &product, nil
 }
+
+func (c *Client) SearchProduct(productID string) (*Product, error) {
+	return nil, nil
+}
